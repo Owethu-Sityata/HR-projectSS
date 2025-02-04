@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HR Management System</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+    <script>
+        // Add New Employee
+        function addNewEmployee() {
+            const employeeTableBody = document.getElementById('employee-table-body');
+            const newName = prompt("Enter the employee's name:");
+            const newPosition = prompt("Enter the employee's position:");
+            const newDepartment = prompt("Enter the employee's department:");
+            const newSalary = prompt("Enter the employee's salary:");
+            const newHistory = prompt("Enter the employee's employment history:");
+            const newContact = prompt("Enter the employee's contact:");
+
+            if (newName && newPosition && newDepartment && newSalary && newHistory && newContact) {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${employeeTableBody.rows.length + 1}</td>
+                    <td class="employee-name">${newName}</td>
+                    <td class="employee-position">${newPosition}</td>
+                    <td class="employee-department">${newDepartment}</td>
+                    <td class="employee-salary">${newSalary}</td>
+                    <td class="employee-history">${newHistory}</td>
+                    <td class="employee-contact">${newContact}</td>
+                    <td><button class="btn btn-danger btn-sm" onclick="deleteEmployee(this)">Delete</button></td>
+                `;
+                employeeTableBody.appendChild(row);
+            }
+        }
+
+        // Double Click to Edit Employee Details
+        function editEmployee(event) {
+            const currentValue = event.target.innerText;
+            const inputField = document.createElement('input');
+            inputField.value = currentValue;
+            event.target.innerHTML = '';
+            event.target.appendChild(inputField);
+
+            inputField.addEventListener('blur', () => {
+                event.target.innerHTML = inputField.value;
+            });
+
+            inputField.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    event.target.innerHTML = inputField.value;
+                }
+            });
+        }
+
+        // Delete Employee Row
+        function deleteEmployee(button) {
+            const row = button.closest('tr');
+            row.remove();
+        }
+
+        // Search Employee
+        function searchEmployee() {
+            const searchTerm = document.getElementById('search-input').value.toLowerCase();
+            const rows = document.querySelectorAll('#employee-table-body tr');
+            rows.forEach(row => {
+                const name = row.querySelector('.employee-name').innerText.toLowerCase();
+                if (name.includes(searchTerm)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        }
+
+        // Add Event Listeners to Employee Fields for Editing
+        window.onload = () => {
+            const employeeFields = document.querySelectorAll('.employee-name, .employee-position, .employee-department, .employee-salary, .employee-history, .employee-contact');
+            employeeFields.forEach(field => {
+                field.addEventListener('dblclick', editEmployee);
+            });
+        };
+    </script>
+</head>
+<body>
+    <!-- Navbar -->
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+            <div class="container-fluid">
+                <a class="navbar-brand d-flex align-items-center" href="#">
+                    <img src="/HR projectSS/images/Moderntech back2.png" alt="Moderntech Solutions" height="40" class="me-2">
+                    <span>Moderntech Solutions</span>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item"><a class="nav-link" href="index.html">Dashboard</a></li>
+                        <li class="nav-item"><a class="nav-link" href="employee_management.html">Employee Management</a></li>
+                        <li class="nav-item"><a class="nav-link" href="leave_requests.html">Leave Requests</a></li>
+                        <li class="nav-item"><a class="nav-link" href="Attendance.html">Attendance</a></li>
+                        <li class="nav-item"><a class="nav-link" href="payroll.html">Payroll</a></li>
+                        <li class="nav-item"><a class="nav-link" href="perfomance.html">Performance Reviews</a></li>
+                        <button id="logout-btn"><a href="login.html">Log Out</a></button> <!-- Log-out button -->
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content Section -->
+    <main class="container mt-5 pt-5">
+        <section id="employee-management">
+            <h2 class="mb-4">Employee Management</h2>
+            <!-- Search Bar -->
+            <div class="mb-3">
+                <input type="text" id="search-input" class="form-control" placeholder="Search Employees" onkeyup="searchEmployee()">
+            </div>
+            <button class="btn btn-primary mb-3" onclick="addNewEmployee()">Add New Employee</button>
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>Employee ID</th>
+                        <th>Name</th>
+                        <th>Position</th>
+                        <th>Department</th>
+                        <th>Salary</th>
+                        <th>Employment History</th>
+                        <th>Contact</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="employee-table-body">
+                    <tr>
+                        <td>1</td>
+                        <td class="employee-name">Sibongile Nkosi</td>
+                        <td class="employee-position">Software Engineer</td>
+                        <td class="employee-department">Development</td>
+                        <td class="employee-salary">70,000</td>
+                        <td class="employee-history">Joined in 2015, promoted to Senior in 2018</td>
+                        <td class="employee-contact">sibongile.nkosi@moderntech.com</td>
+                        <td><button class="btn btn-danger btn-sm" onclick="deleteEmployee(this)">Delete</button></td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td class="employee-name">Lungile Moyo</td>
+                        <td class="employee-position">HR Manager</td>
+                        <td class="employee-department">HR</td>
+                        <td class="employee-salary">80,000</td>
+                        <td class="employee-history">Joined in 2013, promoted to Manager in 2017</td>
+                        <td class="employee-contact">lungile.moyo@moderntech.com</td>
+                        <td><button class="btn btn-danger btn-sm" onclick="deleteEmployee(this)">Delete</button></td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td class="employee-name">Thabo Molefe</td>
+                        <td class="employee-position">Quality Analyst</td>
+                        <td class="employee-department">QA</td>
+                        <td class="employee-salary">55,000</td>
+                        <td class="employee-history">Joined in 2018</td>
+                        <td class="employee-contact">thabo.molefe@moderntech.com</td>
+                        <td><button class="btn btn-danger btn-sm" onclick="deleteEmployee(this)">Delete</button></td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td class="employee-name">Keshav Naidoo</td>
+                        <td>Sales Representative</td>
+                        <td>Sales</td>
+                        <td>60,000</td>
+                        <td>Joined in 2020</td>
+                        <td>keshav.naidoo@moderntech.com</td>
+                        <td><button class="btn btn-danger btn-sm" onclick="deleteEmployee(this)">Delete</button></td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td class="employee-name">Zanele Khumalo</td>
+                        <td>Marketing Specialist</td>
+                        <td>Marketing</td>
+                        <td>50,000</td>
+                        <td>Joined in 2019</td>
+                        <td>zanele.khumalo@moderntech.com</td>
+                        <td><button class="btn btn-danger btn-sm" onclick="deleteEmployee(this)">Delete</button></td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td class="employee-name">Sipho Zulu</td>
+                        <td>UI/UX Designer</td>
+                        <td>Design</td>
+                        <td>65,000</td>
+                        <td>Joined in 2016</td>
+                        <td>sipho.zulu@moderntech.com</td>
+                        <td><button class="btn btn-danger btn-sm" onclick="deleteEmployee(this)">Delete</button></td>
+                    </tr>
+                    <tr>
+                        <td>7</td>
+                        <td class="employee-name">Naledi Moeketsi</td>
+                        <td>DevOps Engineer</td>
+                        <td>IT</td>
+                        <td>72,000</td>
+                        <td>Joined in 2017</td>
+                        <td>naledi.moeketsi@moderntech.com</td>
+                        <td><button class="btn btn-danger btn-sm" onclick="deleteEmployee(this)">Delete</button></td>
+                    </tr>
+                    <tr>
+                        <td>8</td>
+                        <td class="employee-name">Farai Gumbo</td>
+                        <td>Content Strategist</td>
+                        <td>Marketing</td>
+                        <td>R56,000</td>
+                        <td>Joined in 2021</td>
+                        <td>farai.gumbo@moderntech.com</td>
+                        <td><button class="btn btn-danger btn-sm" onclick="deleteEmployee(this)">Delete</button></td>
+                    </tr>
+                    <tr>
+                        <td>9</td>
+                        <td class="employee-name">Karabo Dlamani</td>
+                        <td>Accountant</td>
+                        <td>Finance</td>
+                        <td>62,000</td>
+                        <td>Joined in 2018</td>
+                        <td>karabo.dlamini@moderntech.com</td>
+                        <td><button class="btn btn-danger btn-sm" onclick="deleteEmployee(this)">Delete</button></td>
+                    </tr>
+                    <tr>
+                        <td>10</td>
+                        <td class="employee-name">Fatiman Patel</td>
+                        <td>Customer Support Lead</td>
+                        <td>Support</td>
+                        <td>58,000</td>
+                        <td>Joined in 2016</td>
+                        <td>fatima.patel@moderntech.com</td>
+                        <td><button class="btn btn-danger btn-sm" onclick="deleteEmployee(this)">Delete</button></td>
+                    </tr>
+                
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <footer class="text-center mt-5 p-3 bg-dark text-light">
+        <p>&copy; 2024 Moderntech Solutions HR Management System. All rights reserved.</p>
+    </footer>
+
+    <!-- Bootstrap JS (Optional) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>

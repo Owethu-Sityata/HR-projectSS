@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Login | HR Management System</title>
+    <link rel="stylesheet" href="/HR projectSS/styling/login-style.css">
+    <script defer src="/HR projectSS/script/login-script.js"></script>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-header">
+            <h2><img src="/HR projectSS/images/Moderntech Solutions.png" alt="Logo" class="logo-img"></h2><br>
+             <h4>Please log in to continue</h4>
+        </div>
+        
+        <form id="login-form" onsubmit="return validateLogin()">
+            <div class="form-group">
+                <label for="uname">Username</label>
+                <input type="text" id="uname" name="username" required placeholder="Enter username">
+            </div>
+
+            <div class="form-group">
+                <label for="pwd">Password</label>
+                <input type="password" id="pwd" name="password" required placeholder="Enter password">
+            </div>
+
+            <div class="role-options">
+                <label for="role">Login as:</label>
+                <select id="role" name="role" required>
+                    <!-- <option value="employee">Employee</option> -->
+                    <option value="admin">Admin (HR)</option>
+                </select>
+            </div>
+
+            <button type="submit" class="login-btn">Login</button>
+        </form>
+
+        <!-- Error Modal -->
+        <div id="error-modal" class="error-modal">
+            <div class="modal-content">
+                <p>Invalid username or password!</p>
+                <button onclick="dismissModal()">Close</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

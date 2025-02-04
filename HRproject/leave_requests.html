@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leave Request Management</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            padding-top: 80px;
+        }
+        .leave-management-container {
+            max-width: 900px;
+            margin: 20px auto;
+        }
+        .leave-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        .leave-table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        .approve-btn, .deny-btn {
+            padding: 8px 15px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        .approve-btn {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+        }
+        .approve-btn:hover {
+            background-color: #45a049;
+        }
+        .deny-btn {
+            background-color: #f44336;
+            color: white;
+            border: none;
+        }
+        .deny-btn:hover {
+            background-color: #e53935;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+            <div class="container-fluid">
+                <a class="navbar-brand d-flex align-items-center" href="#">
+                    <img src="/HR projectSS/images/Moderntech back2.png" alt="Moderntech Solutions" height="40" class="me-2">
+                    <span>Moderntech Solutions</span>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item"><a class="nav-link" href="index.html">Dashboard</a></li>
+                        <li class="nav-item"><a class="nav-link" href="employee_management.html">Employee Management</a></li>
+                        <li class="nav-item"><a class="nav-link" href="leave_requests.html">Leave Requests</a></li>
+                        <li class="nav-item"><a class="nav-link" href="Attendance.html">Attendance</a></li>
+                        <li class="nav-item"><a class="nav-link" href="payroll.html">Payroll</a></li>
+                        <li class="nav-item"><a class="nav-link" href="performance_reviews.html">Performance Reviews</a></li>
+                        <button id="logout-btn"><a href="login.html">Log Out</a></button> <!-- Log-out button -->
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="leave-management-container">
+        <h3>Leave Request Management</h3>
+        
+        <!-- Table to display leave requests -->
+        <table class="leave-table" id="leaveTable">
+            <thead>
+                <tr>
+                    <th>Employee Name</th>
+                    <th>Leave Date</th>
+                    <th>Leave Reason</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Leave request data will be dynamically inserted here -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        // Dummy attendance and leave data
+        const attendanceAndLeave = [
+            {
+                "employeeId": 1,
+                "name": "Sibongile Nkosi",
+                "leaveRequests": [
+                    { "date": "2024-11-22", "reason": "Sick Leave", "status": "Approved" },
+                    { "date": "2024-12-01", "reason": "Personal", "status": "Pending" }
+                ]
+            },
+            {
+                "employeeId": 2,
+                "name": "Lungile Moyo",
+                "leaveRequests": [
+                    { "date": "2024-11-15", "reason": "Family Responsibility", "status": "Denied" },
+                    { "date": "2024-12-02", "reason": "Vacation", "status": "Approved" }
+                ]
+            },
+            {
+                "employeeId": 3,
+                "name": "Thabo Molefe",
+                "leaveRequests": [
+                    { "date": "2024-11-10", "reason": "Medical Appointment", "status": "Approved" },
+                    { "date": "2024-12-05", "reason": "Personal", "status": "Pending" }
+                ]
+            },
+            {
+                "employeeId": 4,
+                "name": "Keshav Naidoo",
+                "leaveRequests": [
+                    { "date": "2024-11-20", "reason": "Bereavement", "status": "Approved" }
+                ]
+            },
+            {
+                "employeeId": 5,
+                "name": "Zanele Khumalo",
+                "leaveRequests": [
+                    { "date": "2024-12-01", "reason": "Childcare", "status": "Pending" }
+                ]
+            }
+        ];
+
+        // Render leave requests
+        function renderLeaveRequests() {
+            const leaveTableBody = document.getElementById('leaveTable').getElementsByTagName('tbody')[0];
+            leaveTableBody.innerHTML = ''; // Clear current content
+
+            // Loop through each employee's leave requests
+            attendanceAndLeave.forEach(employee => {
+                employee.leaveRequests.forEach(request => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${employee.name}</td>
+                        <td>${request.date}</td>
+                        <td>${request.reason}</td>
+                        <td>${request.status}</td>
+                        <td>
+                            ${request.status === 'Pending' ? `
+                                <button class="approve-btn" onclick="updateLeaveStatus(${employee.employeeId}, '${request.date}', 'Approved')">Approve</button>
+                                <button class="deny-btn" onclick="updateLeaveStatus(${employee.employeeId}, '${request.date}', 'Denied')">Deny</button>
+                            ` : ''}
+                        </td>
+                    `;
+                    leaveTableBody.appendChild(row);
+                });
+            });
+        }
+
+        // Update leave status (Approve or Deny)
+        function updateLeaveStatus(employeeId, leaveDate, status) {
+            const employee = attendanceAndLeave.find(emp => emp.employeeId === employeeId);
+            const leaveRequest = employee.leaveRequests.find(req => req.date === leaveDate);
+            
+            if (leaveRequest) {
+                leaveRequest.status = status; // Update the status
+                renderLeaveRequests(); // Re-render the table with updated data
+            }
+        }
+
+        // Initial render of the leave requests
+        renderLeaveRequests();
+    </script>
+
+<footer class="text-center mt-5 p-3 bg-dark text-light">
+    <p>&copy; 2024 Moderntech Solutions HR Management System. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

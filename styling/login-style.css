@@ -1,0 +1,223 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body { 
+    font-family: Arial, sans-serif;
+    background-color: #b6ebab;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    padding: 10px; /* Prevent body from having extra space on small screens */
+    
+}
+
+/* Login Container */
+.login-container {
+    background-color: white;
+    padding: 20px; /* Padding for mobile/tablet */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px; /* Max width for larger screens */
+    text-align: center;
+}
+
+/* Logo and Header */
+.login-header {
+    margin-bottom: 15px; /* Reduced margin */
+}
+
+h {
+    font-size: 18px; /* Adjusted for mobile devices */
+    color: #333;
+    margin-bottom: 10px;
+}
+/* Image inside h2 */
+.logo-img {
+    max-width: 100%; /* Ensures the image is responsive */
+    height: auto;    /* Keeps the aspect ratio intact */
+    display: block;  /* Removes any extra spacing around the image */
+    margin: 0 auto;  /* Centers the image horizontally */
+}
+
+
+h4 {
+    color: #554a4a;
+    font-size: 12px; /* Smaller font for readability on mobile */
+}
+
+/* Form Group Styling */
+.form-group {
+    margin-bottom: 15px; /* Reduced bottom margin */
+    text-align: left;
+}
+
+label {
+    display: block;
+    font-size: 12px;
+    color: #555;
+    margin-bottom: 6px;
+}
+
+input[type="text"], input[type="password"], select {
+    width: 100%;
+    padding: 12px; /* Slightly reduced padding */
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    color: #333;
+}
+
+input[type="text"]:focus, input[type="password"]:focus, select:focus {
+    border-color: #4CAF50;
+    outline: none;
+}
+
+/* Role Selection */
+.role-options {
+    margin-bottom: 15px; /* Reduced bottom margin */
+    text-align: left;
+}
+
+.role-options select {
+    padding: 12px;
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+/* Login Button */
+.login-btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 15px 20px;
+    border: none;
+    width: 100%;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.login-btn:hover {
+    background-color: #45a049;
+}
+
+/* Error Modal */
+.error-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
+    width: 300px;
+}
+
+.error-modal button {
+    background-color: #f44336;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.error-modal button:hover {
+    background-color: #d32f2f;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+    body {
+        padding: 15px; /* Add some padding for smaller devices */
+    }
+
+    .login-container {
+        padding: 25px;
+        width: 100%; /* Full width on mobile/tablet */
+        max-width: 100%; /* Remove max-width for tablets */
+    }
+
+    h3{
+        font-size: 22px;
+    }
+
+    .logo {
+        width: 100px; /* Smaller logo for tablets */
+    }
+    .logo-img {
+        width: 80%; /* Adjust the width for tablets */
+    }
+
+    label {
+        font-size: 13px;
+    }
+
+    input[type="text"], input[type="password"], select {
+        padding: 10px; /* Reduce padding on smaller screens */
+        font-size: 14px; /* Slightly smaller font size for inputs */
+    }
+
+    .login-btn {
+        font-size: 15px;
+    }
+
+    .modal-content {
+        width: 280px; /* Slightly smaller modal on tablets */
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 10px; /* Reduce padding for very small screens */
+    }
+
+    .login-container {
+        padding: 20px;
+        width: 100%; /* Full width container on mobile */
+        max-width: 100%; /* Remove max-width for mobile */
+    }
+
+    h2 {
+        font-size: 20px; /* Even smaller font for small screens */
+    }
+
+    .logo {
+        width: 80px; /* Smaller logo for mobile */
+    }
+    .logo-img {
+        width: 60%; /* Adjust the width for mobile */
+    }
+
+    label {
+        font-size: 12px;
+    }
+
+    input[type="text"], input[type="password"], select {
+        padding: 8px; /* Reduce padding further on mobile */
+        font-size: 14px;
+    }
+
+    .login-btn {
+        font-size: 14px;
+    }
+
+    .modal-content {
+        width: 90%; /* Full width modal on very small screens */
+    }
+}

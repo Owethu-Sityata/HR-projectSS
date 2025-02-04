@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Payroll & Payslips</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            padding-top: 80px; /* Add top padding to avoid overlap with navbar */
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 40px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        .payslip-container {
+            border: 1px solid #ddd;
+            padding: 20px;
+            max-width: 600px;
+            margin: 20px auto;
+            display: none;
+        }
+        .payslip-container h2 {
+            text-align: center;
+        }
+        .details div {
+            margin: 5px 0;
+        }
+        .close-btn, .send-btn, .next-btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+            margin: 20px 0;
+            font-size: 16px;
+        }
+        .close-btn {
+            background-color: #f44336;
+        }
+        .search-bar {
+            margin-bottom: 20px;
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            margin-top: 20px; /* Adds space between the navbar and search bar */
+        }
+        .pagination {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+            <div class="container-fluid">
+                <a class="navbar-brand d-flex align-items-center" href="#">
+                    <img src="/HR projectSS/images/Moderntech back2.png" alt="Moderntech Solutions" height="40" class="me-2">
+                    <span>Moderntech Solutions</span>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item"><a class="nav-link" href="index.html">Dashboard</a></li>
+                        <li class="nav-item"><a class="nav-link" href="employee_management.html" onclick="renderEmployeeTable()">Employee Management</a></li>
+                        <li class="nav-item"><a class="nav-link" href="leave_requests.html">Leave Requests</a></li>
+                        <li class="nav-item"><a class="nav-link" href="Attendance.html">Attendance</a></li>
+                        <li class="nav-item"><a class="nav-link" href="payroll.html">Payroll</a></li>
+                        <li class="nav-item"><a class="nav-link" href="perfomance.html">Performance Reviews</a></li>
+                        <button id="logout-btn"><a href="login.html">Log Out</a></button> <!-- Log-out button -->
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <input type="text" id="searchBar" class="search-bar" placeholder="Search Employee by Name..." onkeyup="searchEmployee()">
+
+    <h3>Employee List</h3>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>Employee ID</th>
+                <th>Name</th>
+                <th>Position</th>
+                <th>Base Salary (ZAR)</th>
+                <th>Hours Worked</th>
+                <th>Leave Deductions</th>
+                <th>Final Salary (ZAR)</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="employeeTable">
+            <!-- Employee rows will be added here dynamically -->
+        </tbody>
+    </table>
+
+    <!-- Payslip modal (hidden by default) -->
+    <div class="payslip-container" id="payslipContainer">
+        <h2>Payroll for <span id="payslipName"></span></h2>
+        <div class="details">
+            <div><strong>Employee ID:</strong> <span id="payslipId"></span></div>
+            <div><strong>Name:</strong> <span id="payslipNameDetail"></span></div>
+            <div><strong>Position:</strong> <span id="payslipPosition"></span></div>
+            <div><strong>Base Salary (ZAR):</strong> <span id="payslipBaseSalary"></span></div>
+            <div><strong>Hours Worked:</strong> <span id="payslipHoursWorked"></span> hours</div>
+            <div><strong>Leave Deductions:</strong> <span id="payslipLeaveDeductions"></span> hours</div>
+            <div><strong>Final Salary (ZAR):</strong> <span id="payslipFinalSalary"></span></div>
+        </div>
+        <button class="close-btn" onclick="closePayslip()">Close Payslip</button>
+        <button class="send-btn" onclick="sendPayslip()">Send Payslip</button>
+    </div>
+
+    <div class="pagination">
+        <button class="next-btn" onclick="loadNextPage()">Next</button>
+    </div>
+
+    <footer class="text-center mt-5 p-3 bg-dark text-light">
+        <p>&copy; 2024 Moderntech Solutions HR Management System. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Dummy Data (This would be your "employeeInformation" and "payrollData")
+        const employees = [
+            { id: 1, name: "Sibongile Nkosi", position: "Software Engineer", salary: 70000, hoursWorked: 160, leaveDeductions: 8 },
+            { id: 2, name: "Lungile Moyo", position: "HR Manager", salary: 80000, hoursWorked: 150, leaveDeductions: 10 },
+            { id: 3, name: "Thabo Molefe", position: "Quality Analyst", salary: 55000, hoursWorked: 170, leaveDeductions: 4 },
+            { id: 4, name: "Keshav Naidoo", position: "Sales Representative", salary: 60000, hoursWorked: 165, leaveDeductions: 6 },
+            { id: 5, name: "Zanele Khumalo", position: "Marketing Specialist", salary: 58000, hoursWorked: 158, leaveDeductions: 5 },
+            { id: 6, name: "Sipho Zulu", position: "UI/UX Designer", salary: 65000, hoursWorked: 168, leaveDeductions: 2 },
+            { id: 7, name: "Naledi Moeketsi", position: "DevOps Engineer", salary: 72000, hoursWorked: 175, leaveDeductions: 3 },
+            { id: 8, name: "Farai Gumbo", position: "Content Strategist", salary: 56000, hoursWorked: 160, leaveDeductions: 0 },
+            { id: 9, name: "Karabo Dlamini", position: "Accountant", salary: 62000, hoursWorked: 155, leaveDeductions: 5 },
+            { id: 10, name: "Fatima Patel", position: "Customer Support Lead", salary: 58000, hoursWorked: 162, leaveDeductions: 4 }
+        ];
+
+        let currentPage = 1;
+        const employeesPerPage = 5; // Show 5 employees per page
+
+        // Function to calculate final salary
+        function calculateFinalSalary(employee) {
+            const baseSalary = employee.salary;
+            const leaveDeductions = employee.leaveDeductions;
+
+            // Calculate the final salary (simple example: deduct salary based on leave)
+            const finalSalary = baseSalary - (leaveDeductions * 200); // Assuming R200 per day leave deduction
+            return finalSalary;
+        }
+
+        // Function to render the employee table
+        function renderEmployeeTable(page = 1) {
+            const startIndex = (page - 1) * employeesPerPage;
+            const endIndex = startIndex + employeesPerPage;
+            const employeeTable = document.getElementById('employeeTable');
+            employeeTable.innerHTML = '';  // Clear existing table data
+
+            const paginatedEmployees = employees.slice(startIndex, endIndex);
+
+            paginatedEmployees.forEach(employee => {
+                const finalSalary = calculateFinalSalary(employee);
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${employee.id}</td>
+                    <td>${employee.name}</td>
+                    <td>${employee.position}</td>
+                    <td>R${employee.salary.toLocaleString()}</td>
+                    <td>${employee.hoursWorked}</td>
+                    <td>${employee.leaveDeductions}</td>
+                    <td>R${finalSalary.toLocaleString()}</td>
+                    <td>
+                        <button onclick="viewPayslip(${employee.id})">View Payslip</button>
+                        <button onclick="sendPayslip(${employee.id})">Send Payslip</button>
+                    </td>
+                `;
+                employeeTable.appendChild(row);
+            });
+        }
+
+        // Function to show payslip for the selected employee
+        function viewPayslip(employeeId) {
+            const employee = employees.find(emp => emp.id === employeeId);
+            if (employee) {
+                const finalSalary = calculateFinalSalary(employee);
+                document.getElementById('payslipId').textContent = employee.id;
+                document.getElementById('payslipName').textContent = employee.name;
+                document.getElementById('payslipNameDetail').textContent = employee.name;
+                document.getElementById('payslipPosition').textContent = employee.position;
+                document.getElementById('payslipBaseSalary').textContent = employee.salary;
+                document.getElementById('payslipHoursWorked').textContent = employee.hoursWorked;
+                document.getElementById('payslipLeaveDeductions').textContent = employee.leaveDeductions;
+                document.getElementById('payslipFinalSalary').textContent = finalSalary;
+
+                document.getElementById('payslipContainer').style.display = 'block';
+            }
+        }
+
+        // Function to close payslip modal
+        function closePayslip() {
+            document.getElementById('payslipContainer').style.display = 'none';
+        }
+
+        // Function to send payslip
+        function sendPayslip(employeeId) {
+            const employee = employees.find(emp => emp.id === employeeId);
+            alert(`Payslip for ${employee.name} has been sent!`);
+        }
+
+        // Function to search employees by name
+        function searchEmployee() {
+            const searchQuery = document.getElementById('searchBar').value.toLowerCase();
+            const filteredEmployees = employees.filter(employee => employee.name.toLowerCase().includes(searchQuery));
+            renderEmployeeTableForSearch(filteredEmployees);
+        }
+
+        function renderEmployeeTableForSearch(filteredEmployees) {
+            const employeeTable = document.getElementById('employeeTable');
+            employeeTable.innerHTML = '';  // Clear existing table data
+
+            filteredEmployees.forEach(employee => {
+                const finalSalary = calculateFinalSalary(employee);
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${employee.id}</td>
+                    <td>${employee.name}</td>
+                    <td>${employee.position}</td>
+                    <td>R${employee.salary.toLocaleString()}</td>
+                    <td>${employee.hoursWorked}</td>
+                    <td>${employee.leaveDeductions}</td>
+                    <td>R${finalSalary.toLocaleString()}</td>
+                    <td>
+                        <button onclick="viewPayslip(${employee.id})">View Payslip</button>
+                        <button onclick="sendPayslip(${employee.id})">Send Payslip</button>
+                    </td>
+                `;
+                employeeTable.appendChild(row);
+            });
+        }
+
+        // Function to load next page of employees
+        function loadNextPage() {
+            currentPage++;
+            if (currentPage * employeesPerPage > employees.length) {
+                currentPage = 1;  // Loop back to first page
+            }
+            renderEmployeeTable(currentPage);
+        }
+
+        // Initialize the table on page load
+        window.onload = function() {
+            renderEmployeeTable(currentPage);
+        };
+    </script>
+
+</body>
+</html>

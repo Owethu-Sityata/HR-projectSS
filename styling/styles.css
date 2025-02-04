@@ -1,0 +1,274 @@
+/* Reset default styling */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body and layout styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    color: #90bb69;
+    padding: 20px;
+}
+
+header {
+    background-color: #3e8e41;
+    padding: 10px 0;
+    text-align: center;
+}
+
+header nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+header nav ul li {
+    display: inline;
+    margin-right: 20px;
+}
+
+header nav ul li a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+}
+
+header nav ul li a:hover {
+    text-decoration: underline;
+}
+
+/* Main section styling */
+main {
+    margin-top: 30px;
+}
+
+section {
+    margin-bottom: 40px;
+}
+
+h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table th, table td {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+table th {
+    background-color: #f2f2f2;
+}
+
+#dashboard-stats {
+    display: flex;
+    gap: 20px;
+}
+
+.stat-box {
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    text-align: center;
+    flex: 1;
+}
+
+.stat-box h3 {
+    font-size: 18px;
+}
+
+.stat-box p {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+
+/* splash screen */
+
+/* General styles for body and layout */
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #2e7d32; /* Green background */
+    color: white;
+}
+.h2 {
+    text-emphasis-color: black;
+}
+
+/* Splash Screen */
+.splash-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-color: #388e3c; /* Darker green */
+    z-index: 1000; /* Make sure splash screen is on top */
+    opacity: 1;
+    transition: opacity 1s ease-out;
+}
+
+/* Hidden splash screen after transition */
+.splash-screen.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Animation for logo */
+.logo-img {
+    width: 150px;
+    animation: logoAnimation 2s ease-in-out infinite;
+}
+
+/* Animation for slogan text */
+.slogan {
+    font-size: 2rem;
+    margin-top: 20px;
+    animation: sloganAnimation 2s ease-in-out forwards;
+    opacity: 0;
+}
+
+/* Animation for click message */
+.click-message {
+    font-size: 1.2rem;
+    margin-top: 20px;
+    opacity: 0;
+    animation: clickMessageAnimation 1s ease-in-out forwards;
+    animation-delay: 2s; /* Delay to show after slogan animation */
+}
+
+/* Keyframes for the logo animation (pulsing effect) */
+@keyframes logoAnimation {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.1);
+        opacity: 0.7;
+    }
+}
+
+/* Keyframes for the slogan animation */
+@keyframes sloganAnimation {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Keyframes for the click-to-continue animation */
+@keyframes clickMessageAnimation {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+/* Login container (initially hidden) */
+.login-container {
+    display: none;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* side navigation bar */
+
+/* Basic reset for margin and padding */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body styling */
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Company logo styling */
+.logo-container {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.company-logo {
+    max-width: 80%;
+    height: auto;
+}
+
+/* Logout button styling */
+#logout-btn {
+    margin-top: auto;
+    background-color: #e74c3c; /* Red color for logout button */
+    border: none;
+    padding: 15px;
+    width: 100%;
+    cursor: pointer;
+    text-align: center;
+    font-size: 16px;
+}
+
+#logout-btn a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+#logout-btn:hover {
+    background-color: #c0392b; /* Darker red on hover */
+}
+
+/* Main content area */
+main {
+    margin-left: 250px; /* Space for side nav */
+    padding: 20px;
+    flex-grow: 1;
+}
+
