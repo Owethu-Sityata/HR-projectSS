@@ -1,3 +1,28 @@
+<?php
+//  database connection file
+include_once 'db-inc.php'; 
+
+// SQL query to fetch employee records
+$sql = "SELECT * FROM employees"; 
+
+// Executing the SQL query
+$queryResult = mysqli_query($dbConnection, $sql);
+
+
+if (!$queryResult) {
+    die("Error in query execution: " . mysqli_error($dbConnection));
+}
+
+// Fetch all the employees' data
+$employees = [];
+while ($row = mysqli_fetch_assoc($queryResult)) {
+    $employees[] = $row;
+}
+
+// Closing the database connection
+mysqli_close($dbConnection);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

@@ -24,7 +24,7 @@ function validateLogin() {
     if (valid) {
         // Log the success and redirect
         console.log("Login successful. Redirecting...");
-        window.location.href = 'index.html'; // Redirect to the main page
+        window.location.href = 'index.php'; // Redirect to the main page
         return false; // Prevent the form from actually submitting and refreshing
     } else {
         // Log invalid login attempt

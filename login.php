@@ -1,3 +1,13 @@
+<?php
+//  database connection file
+include_once 'db-inc.php'; 
+
+// SQL query to fetch employee records
+
+// Closing the database connection
+mysqli_close($dbConnection);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

@@ -1,3 +1,9 @@
+<?php
+//  database connection file
+include_once 'db-inc.php'; 
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -66,13 +72,13 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
-                        <li class="nav-item"><a class="nav-link" href="index.html">Dashboard</a></li>
-                        <li class="nav-item"><a class="nav-link" href="employee_management.html">Employee Management</a></li>
-                        <li class="nav-item"><a class="nav-link" href="leave_requests.html">Leave Requests</a></li>
-                        <li class="nav-item"><a class="nav-link" href="Attendance.html">Attendance</a></li>
-                        <li class="nav-item"><a class="nav-link" href="payroll.html">Payroll</a></li>
-                        <li class="nav-item"><a class="nav-link" href="perfomance.html">Performance Reviews</a></li>
-                        <button id="logout-btn"><a href="login.html">Log Out</a></button> <!-- Log-out button -->
+                        <li class="nav-item"><a class="nav-link" href="index.php">Dashboard</a></li>
+                        <li class="nav-item"><a class="nav-link" href="employee_management.php">Employee Management</a></li>
+                        <li class="nav-item"><a class="nav-link" href="leave_requests.php">Leave Requests</a></li>
+                        <li class="nav-item"><a class="nav-link" href="Attendance.php">Attendance</a></li>
+                        <li class="nav-item"><a class="nav-link" href="payroll.php">Payroll</a></li>
+                        <li class="nav-item"><a class="nav-link" href="perfomance.php">Performance Reviews</a></li>
+                        <button id="logout-btn"><a href="login.php">Log Out</a></button> <!-- Log-out button -->
                     </ul>
                 </div>
             </div>
